@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+
+  <body>
+ 
+  <div class="row">
+  <div class="col-md-3">
+    <nav class="nav flex-column">
+        <a class="nav-link active" aria-current="page" href="#">Clients</a>
+        <a class="nav-link disabled" href="#">Client Look History</a>
+        <a class="nav-link disabled" href="#">Emergency PIN Configuration</a>
+        <a class="nav-link disabled" href="#">mergency PIN History</a>
+    </nav>
+  </div>
+
+
+<div class="col-md-8">
+    <button [routerLink]="['/clients/form']" type="button" id="buttonRegister">New Register</button>
+    <br><br>
+    <div class="col-md-6">
+    <input type="text" class="form-control" placeholder="Enter Shared Key" [(ngModel)]="sharedKey"/>
+    <br>
+    <button (click)="getClientBySharedKey()" type="button" id="buttonSharedKey">Search</button>
+    <button (click)="getAllClients()" type="button" id="buttonReset">Reset</button>
+    </div>
+    <br>
+<div class="col-md-6" *ngIf="clients.length==0">
+    <h2>List Clients Empty</h2>
+</div>
+<div class="col-md-6" *ngIf="clients.length>0">
+    <h2>Clients</h2>
+    <table class="table table-sm align-middle bg-white">
+        <thead>
+            <tr>
+                <th>SharedKey</th>
+                <th>BusinessId</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Date Added</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let client of clients">
+                <td>{{client.sharedKey}}</td>
+                <td>{{client.businessId}}</td>
+                <td>{{client.email}}</td>
+                <td>{{client.phone}}</td>
+                <td>{{client.dateAdded}}</td>
+                <td>
+                    <button type="button" class="btn btn-secondary me-2" [routerLink]="['/clients/form', client.sharedKey]">Edit</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+
+</div>
+</body>
+</html>
